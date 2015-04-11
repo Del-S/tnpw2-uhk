@@ -6,12 +6,13 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'XdgBaseDir\\' => array($vendorDir . '/dnoegel/php-xdg-base-dir/src'),
-    'SuperClosure\\' => array($vendorDir . '/jeremeamia/SuperClosure/src'),
-    'Stringy\\' => array($vendorDir . '/danielstjules/stringy/src'),
-    'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
-    'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
-    'Illuminate\\' => array($vendorDir . '/laravel/framework/src/Illuminate'),
-    'ClassPreloader\\' => array($vendorDir . '/classpreloader/classpreloader/src'),
-    'App\\' => array($baseDir . '/app'),
+    'yii\\swiftmailer\\' => array($vendorDir . '/yiisoft/yii2-swiftmailer'),
+    'yii\\gii\\' => array($vendorDir . '/yiisoft/yii2-gii'),
+    'yii\\faker\\' => array($vendorDir . '/yiisoft/yii2-faker'),
+    'yii\\debug\\' => array($vendorDir . '/yiisoft/yii2-debug'),
+    'yii\\composer\\' => array($vendorDir . '/yiisoft/yii2-composer'),
+    'yii\\codeception\\' => array($vendorDir . '/yiisoft/yii2-codeception'),
+    'yii\\bootstrap\\' => array($vendorDir . '/yiisoft/yii2-bootstrap'),
+    'yii\\' => array($vendorDir . '/yiisoft/yii2'),
+    'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
 );

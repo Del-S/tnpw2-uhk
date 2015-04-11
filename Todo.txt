@@ -1,0 +1,6 @@
+Admin - Everything but Category (can copy category forms)
+- Post detail
+- Encrypt password
+- style
+
+Front - All
