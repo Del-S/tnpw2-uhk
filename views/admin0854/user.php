@@ -4,7 +4,8 @@ use yii\helpers\Html;
 $this->title = 'Uživatelé';
 ?>
     <h1><?= Html::encode($this->title) ?></h1>
-    
+    <div class='new-post'><?= Html::a('Nový Uživatel', ["/admin0854/user_new"], ['class'=>'btn btn-new']) ?></div>
+
     <table>
     <tr>
         <th>Uživatelské jméno</th>

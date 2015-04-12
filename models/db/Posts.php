@@ -15,5 +15,5 @@ class Posts extends ActiveRecord
             }
         }
         $this->save();
-    }  
+    }
 }

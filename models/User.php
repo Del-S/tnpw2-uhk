@@ -68,13 +68,24 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->user_pass === $password;
+        $salt = $this->user_pass_second;
+        $pass_encrypt = crypt($password, '$5$rounds=6250$'.$salt.'$');
+        $pass_check = str_replace('$5$rounds=6250$', '',$pass_encrypt);
+        return $this->user_pass === $pass_check;
     }
     
     public function saveUser($attributes) {
         foreach($attributes as $k => $v) {
             if($this->hasAttribute($k)) {
-                $this->$k = $v;
+                if($k == 'user_pass') {
+                    $pass = $v;
+                    $salt = substr(str_replace('+', '.', base64_encode(pack('V6', mt_rand(), mt_rand(), mt_rand(), mt_rand(), mt_rand(), mt_rand()))), 0, 25);
+                    $this->user_pass_second = $salt;
+                    $pass_encrypt = crypt($pass, '$5$rounds=6250$'.$salt.'$');
+                    $pass_save = str_replace('$5$rounds=6250$', '',$pass_encrypt);
+                    $this->$k = $pass_save;
+                }
+                else { $this->$k = $v; }
             }
         }
         $this->save();

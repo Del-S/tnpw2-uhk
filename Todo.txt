@@ -1,7 +1,8 @@
-Admin - Create new post, user (post_new, user_new)
-- Encrypt password !!!!
-- User - generate tokens (maybe Yii function - check composer)
-- Post - add to categories
+Admin
+- Protect some db variables (user login, post - guid...)
+- Delete for all parts
+- User - generate tokens (maybe Yii function - check composer), add roles (admin, editor, head editor...)
+- Post - connect to categories (via post_meta)
 - Enchance all forms
 - Rules for Forms - set right rules (now is default value)
 - Style Admin

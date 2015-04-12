@@ -5,7 +5,8 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Příspěvky';
 ?>
     <h1><?= Html::encode($this->title) ?></h1>
-    
+    <div class='new-post'><?= Html::a('Nový Příspěvek', ["/admin0854/post_new"], ['class'=>'btn btn-new']) ?></div>
+
     <table>
     <tr>
         <th>ID</th>

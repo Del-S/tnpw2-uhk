@@ -143,4 +143,41 @@ class Admin0854Controller extends Controller
             
         } else { $this->redirect('./login'); }
     }
+    
+    /* New forms */
+    
+    public function actionPost_new() {
+        if (!\Yii::$app->user->isGuest) {
+            
+            $post_form = new forms\PostForm();
+            if ($post_form->load(Yii::$app->request->post()) && $post_form->createPost()) {
+                $title = $post_form->getTitle();
+                $post = db\Posts::find()->where(['post_title' => $title])->one();
+                return $this->redirect('./post_detail?post='.$post->post_id);
+            } else {     
+                return $this->render('post_new', [
+                    'post_form' => $post_form,
+                ]);
+            }
+            
+        } else { $this->redirect('./login'); }
+    }
+    
+    public function actionUser_new() {
+        if (!\Yii::$app->user->isGuest) {
+            
+            $user_form = new forms\UserForm();
+            if ($user_form->load(Yii::$app->request->post()) && $user_form->createUser()) {
+                $login = $user_form->getUserLogin();
+                $user = User::find()->where(['user_login' => $login])->one();
+                return $this->redirect('./user_detail?user='.$user->user_id);
+            } else {     
+                return $this->render('user_new', [
+                    'user_form' => $user_form,
+                ]);
+            }
+            
+        } else { $this->redirect('./login'); }
+    }
+    
 }

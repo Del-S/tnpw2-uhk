@@ -47,6 +47,10 @@ class PostForm extends Model
         ];
     }
     
+    public function getTitle() {
+        return $this->post_title;
+    }
+    
     /**
      * @return array the validation rules.
      */
@@ -75,7 +79,7 @@ class PostForm extends Model
             $attributes = $this::getAttributes();
             $post->isNewRecord = false;
             $post->savePost($attributes);
-        
+            return true;
         } else {
             return false;
         }
@@ -84,8 +88,14 @@ class PostForm extends Model
     public function createPost()
     {
         if ($this->validate()) {
-
-        
+            if(!isset($this->post_name) && $this->post_name == '') { $this->post_name = $this->post_title; }
+            $formate = new Formate();
+            $this->post_name = $formate->createGuid($this->post_name);
+            
+            $attributes = $this::getAttributes();
+            $post = new Posts();
+            $post->savePost($attributes);
+            return true;
         } else {
             return false;
         }

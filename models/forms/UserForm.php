@@ -21,9 +21,7 @@ class UserForm extends Model
     public $user_status;
     public $user_display_name;
 
-    public function __construct( $data = [], $config = [] ) {
-        $this->user_id = Yii::$app->user->getID();
-        
+    public function __construct( $data = [], $config = [] ) {    
         foreach($data as $k => $v) {
             if($this->hasProperty($k)) {
                 $this->$k = $v;
@@ -43,6 +41,10 @@ class UserForm extends Model
         ];
     }
     
+    public function getUserLogin() {
+        return $this->user_login;
+    }
+    
     /**
      * @return array the validation rules.
      */
@@ -59,14 +61,11 @@ class UserForm extends Model
 
     public function updateUser($user)
     {
-        if ($this->validate()) {
-            $this->user_login = $user->user_login;
-            //check pass (connected to encrypt pass
-            
+        if ($this->validate()) {            
             $attributes = $this::getAttributes();
             $user->isNewRecord = false;
             $user->saveUser($attributes);
-            
+            return true;
         } else {
             return false;
         }
@@ -75,8 +74,10 @@ class UserForm extends Model
     public function createUser()
     {
         if ($this->validate()) {
-
-        
+            $attributes = $this::getAttributes();
+            $user = new User();
+            $user->saveUser($attributes);
+            return true;
         } else {
             return false;
         }
