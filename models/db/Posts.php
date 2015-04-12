@@ -1,17 +1,19 @@
 <?php
 
-namespace app\models;
+namespace app\models\db;
 
 use yii\db\ActiveRecord;
 
-class Category extends ActiveRecord
-{    
-    public function saveCategory($attributes) {
+class Posts extends ActiveRecord
+{
+    public $user_display_name = '';
+    
+    public function savePost($attributes) {
         foreach($attributes as $k => $v) {
             if($this->hasAttribute($k)) {
                 $this->$k = $v;
             }
         }
         $this->save();
-    }
+    }  
 }

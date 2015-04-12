@@ -4,16 +4,16 @@ namespace app\models\forms;
 
 use Yii;
 use yii\base\Model;
-use app\models\Category;
+use app\models\db\Category;
 use app\models\Formate;
 
 class CategoryForm extends Model
 {
     public $category_name;
-    public $category_title = '';
-    public $category_parent = 0;
+    public $category_title;
     public $guid;
-    public $menu_order = 0;
+    public $category_parent;
+    public $menu_order;
 
     /**
      * @return array the validation rules.
@@ -21,8 +21,8 @@ class CategoryForm extends Model
     public function rules()
     {
         return [
-            // name, email, subject and body are required
             [['category_name'], 'required'],
+            [['category_title', 'category_parent', 'guid', 'menu_order' ], 'default'],
         ];
     }
 
@@ -36,6 +36,7 @@ class CategoryForm extends Model
             $attributes = $this::getAttributes();
             $category = new Category();
             $category->saveCategory($attributes);
+            return true;
         
         } else {
             return false;

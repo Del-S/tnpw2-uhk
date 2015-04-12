@@ -46,20 +46,22 @@ AdminAsset::register($this);
             NavBar::end();
         ?>
         
-       <div class="nav admin">
-       <?php
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav navbar-left'],
-                'items' => [
-                    ['label' => 'Nástěnka', 'url' => ['/admin0854/index']],
-                    ['label' => 'Příspěvky', 'url' => ['/admin0854/posts']],
-                    ['label' => 'Kategorie', 'url' => ['/admin0854/category']],
-                    ['label' => 'Komentáře', 'url' => ['/admin0854/comments']],
-                    ['label' => 'Uživatelé', 'url' => ['/admin0854/user']],
-                ],
-            ]);
-        ?> 
-        </div>
+        <?php if (!\Yii::$app->user->isGuest) { ?>
+            <div class="nav admin">
+            <?php
+                echo Nav::widget([
+                    'options' => ['class' => 'navbar-nav navbar-left'],
+                    'items' => [
+                        ['label' => 'Nástěnka', 'url' => ['/admin0854/index']],
+                        ['label' => 'Příspěvky', 'url' => ['/admin0854/posts']],
+                        ['label' => 'Kategorie', 'url' => ['/admin0854/category']],
+                        ['label' => 'Komentáře', 'url' => ['/admin0854/comments']],
+                        ['label' => 'Uživatelé', 'url' => ['/admin0854/user']],
+                    ],
+                ]);
+            ?> 
+            </div>
+         <?php } ?>
         
         <div class="container_admin">
             <?= $content ?>

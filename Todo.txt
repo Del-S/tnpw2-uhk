@@ -1,6 +1,13 @@
-Admin - Everything but Category (can copy category forms)
-- Post detail
-- Encrypt password
-- style
+Admin - Create new post, user (post_new, user_new)
+- Encrypt password !!!!
+- User - generate tokens (maybe Yii function - check composer)
+- Post - add to categories
+- Enchance all forms
+- Rules for Forms - set right rules (now is default value)
+- Style Admin
 
 Front - All
+- Once categories are connected to posts do:
+ - Menu, Show categories, category detail (posts), post.
+ - Footer
+- Style

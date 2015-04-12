@@ -70,4 +70,13 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     {
         return $this->user_pass === $password;
     }
+    
+    public function saveUser($attributes) {
+        foreach($attributes as $k => $v) {
+            if($this->hasAttribute($k)) {
+                $this->$k = $v;
+            }
+        }
+        $this->save();
+    } 
 }
