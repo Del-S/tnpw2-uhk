@@ -8,7 +8,10 @@ $this->title = 'Detail uživatele';
 
     <p>Vytvořit novou Kategorii</p>
 
-    <?php $form = ActiveForm::begin([
+    
+    <?php 
+    $rights = array(0 => 'Administrátor', 1 => 'Šéfredaktor', 2 => 'Redaktor', 4 => 'Návštěvník');
+    $form = ActiveForm::begin([
         'id' => 'edit-user-form',
         'action' => '#',
         'options' => ['class' => 'form-left'],
@@ -23,7 +26,7 @@ $this->title = 'Detail uživatele';
     <?= $form->field($user_form, 'user_nickname') ?>
     <?= $form->field($user_form, 'user_email') ?>
     <?= $form->field($user_form, 'user_url') ?>
-    <?= $form->field($user_form, 'user_status') ?>
+    <?= $form->field($user_form, 'user_status')->dropDownList($rights); ?>
     <?= $form->field($user_form, 'user_display_name') ?>
 
     <div class="form-group">

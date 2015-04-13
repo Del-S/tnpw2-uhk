@@ -10,6 +10,7 @@ use app\models\Formate;
 
 class PostForm extends Model
 {
+    public $post_id;
     public $post_author;
     public $post_date;
     public $post_date_gmt;
@@ -24,8 +25,10 @@ class PostForm extends Model
     public $menu_order;
     public $post_type;
     public $comment_count;
+    public $errors;
 
     public function __construct( $data = [], $config = [] ) {
+        /* Check this !!!!! */
         $this->post_author = Yii::$app->user->getID();
         
         foreach($data as $k => $v) {
@@ -47,8 +50,8 @@ class PostForm extends Model
         ];
     }
     
-    public function getTitle() {
-        return $this->post_title;
+    public function getPostID() {
+        return $this->post_id;
     }
     
     /**
@@ -72,13 +75,18 @@ class PostForm extends Model
     public function updatePost($post)
     {
         if ($this->validate()) {
-            if(!isset($this->post_name) && $this->post_name == '') { $this->post_name = $this->post_title; }
+            if(!isset($this->post_name) || $this->post_name == '') { $this->post_name = $this->post_title; }
             $formate = new Formate();
             $this->post_name = $formate->createGuid($this->post_name);
             
             $attributes = $this::getAttributes();
             $post->isNewRecord = false;
             $post->savePost($attributes);
+            
+            if($post->hasErrors()) { 
+                $this->errors = $post->getErrors();
+                return false;  
+            }
             return true;
         } else {
             return false;
@@ -88,13 +96,23 @@ class PostForm extends Model
     public function createPost()
     {
         if ($this->validate()) {
-            if(!isset($this->post_name) && $this->post_name == '') { $this->post_name = $this->post_title; }
+            if(!isset($this->post_name) || $this->post_name == '') { $this->post_name = $this->post_title; }
             $formate = new Formate();
             $this->post_name = $formate->createGuid($this->post_name);
             
-            $attributes = $this::getAttributes();
             $post = new Posts();
-            $post->savePost($attributes);
+            /* Check if url already exists */
+            $count = $post->find()->where(['like', 'post_name', $this->post_name.'%', false])->count();
+            $count++;
+            $this->post_name .= "-".$count;
+     
+            $attributes = $this::getAttributes();
+            $this->post_id = $post->savePost($attributes);
+            
+            if($post->hasErrors()) { 
+                $this->errors = $post->getErrors();
+                return false;  
+            }
             return true;
         } else {
             return false;

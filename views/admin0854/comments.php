@@ -18,10 +18,10 @@ $this->title = 'Komentáře';
         <td>
           <a href=""><?= Html::encode("{$comment->comment_content}") ?></a>
           <div class="row-actions">
-              <span class="delete"><a href="">Smazat</a></span>  
+              <span class="delete"><?= Html::a('Smazat', ["/admin0854/comment_trash?comm={$comment->comment_id}"], ['class'=>'btn btn-trash']) ?></span>  
           </div>  
         </td>
-        <td><?= Html::encode("{$comment->post_id}") ?></td>
+        <td>xx</td>
     </tr>
     <?php endforeach; ?>
     </table>

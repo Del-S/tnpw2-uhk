@@ -1,11 +1,11 @@
 Admin
-- Protect some db variables (user login, post - guid...)
-- Delete for all parts
-- User - generate tokens (maybe Yii function - check composer), add roles (admin, editor, head editor...)
+- User - protect admin components by user rights
 - Post - connect to categories (via post_meta)
 - Enchance all forms
 - Rules for Forms - set right rules (now is default value)
 - Style Admin
+
+- Post detail errors too? Maybe?
 
 Front - All
 - Once categories are connected to posts do:

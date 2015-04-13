@@ -23,7 +23,7 @@ $this->title = 'Příspěvky';
           <a href=""><?= Html::encode("{$post->post_name}") ?></a>
           <div class="row-actions">
               <span class="edit"><?= Html::a('Upravit', ["/admin0854/post_detail?post={$post->post_id}"], ['class'=>'btn btn-edit']) ?></span>  
-              <span class="delete"><a href="">Smazat</a></span>  
+              <span class="delete"><?= Html::a('Smazat', ["/admin0854/post_trash?post={$post->post_id}"], ['class'=>'btn btn-trash']) ?></span>  
           </div>  
         </td>
         <td>xx</td>
@@ -32,32 +32,3 @@ $this->title = 'Příspěvky';
     </tr>
     <?php endforeach; ?>
     </table>
-
-    
-
-    <p>Vytvořit novou Kategorii</p>
-
-    <?php $form = ActiveForm::begin([
-        'id' => 'new-post-form',
-        'action' => '#',
-        'options' => ['class' => 'form-left'],
-        'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-1 control-label'],
-        ],
-    ]); ?>
-
-    <?= $form->field($post_form, 'post_title') ?>
-
-    <?= $form->field($post_form, 'post_content') ?>
-
-    <?= $form->field($post_form, 'post_excerpt') ?>
-
-    <?= $form->field($post_form, 'post_name') ?>
-
-    <div class="form-group">
-        <div class="col-lg-offset-1 col-lg-11">
-            <?= Html::submitButton('Vytvořit', ['class' => 'btn btn-primary', 'name' => 'new-post-button'])  ?>
-        </div>
-    </div>
-    <?php ActiveForm::end(); ?>

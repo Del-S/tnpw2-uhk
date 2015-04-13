@@ -9,6 +9,14 @@ $this->title = 'Detail příspěvku';
 
     <p>Vytvořit novou Kategorii</p>
 
+    <div class="form-error">
+    <?php if(is_array($errors)) {
+        foreach ($errors as $error) { 
+            foreach ($error as $k => $v) { ?>
+        <p><?= Html::encode("{$v}") ?></p>
+    <?php }}} ?>
+    </div>
+
     <?php $form = ActiveForm::begin([
         'id' => 'edit-post-form',
         'action' => '#',

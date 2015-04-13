@@ -20,11 +20,12 @@ class UserForm extends Model
     public $user_access_token;
     public $user_status;
     public $user_display_name;
+    public $errors;
 
     public function __construct( $data = [], $config = [] ) {    
         foreach($data as $k => $v) {
             if($this->hasProperty($k)) {
-                $this->$k = $v;
+                if($k != 'user_pass') {$this->$k = $v;}
             }
         }
         
@@ -41,8 +42,8 @@ class UserForm extends Model
         ];
     }
     
-    public function getUserLogin() {
-        return $this->user_login;
+    public function getUserID() {
+        return $this->user_id;
     }
     
     /**
@@ -51,7 +52,11 @@ class UserForm extends Model
     public function rules()
     {
         return [
-            [['user_login', 'user_pass', 'user_pass_check', 'user_nickname', 'user_email' ], 'required'],
+            [['user_login', 'user_nickname', 'user_email' ], 'required'],
+            [['user_pass', 'user_pass_check' ], 'required', 'on' => 'createUser'],
+            
+            [['user_pass_check'], 'compare', 'compareAttribute' => 'user_pass', 'operator'=>'==', 'skipOnEmpty' => false],
+            
             [['user_id' ], 'default', 'value' => NULL],
             [['user_registered' ], 'default', 'value' => '0000-00-00 00:00:00'],
             [['user_status' ], 'default', 'value' => 4],
@@ -65,6 +70,11 @@ class UserForm extends Model
             $attributes = $this::getAttributes();
             $user->isNewRecord = false;
             $user->saveUser($attributes);
+            
+            if($user->hasErrors()) { 
+                $this->errors = $user->getErrors();
+                return false;  
+            }
             return true;
         } else {
             return false;
@@ -74,9 +84,17 @@ class UserForm extends Model
     public function createUser()
     {
         if ($this->validate()) {
+            $this->user_auth_key = substr(str_replace('+', '.', base64_encode(pack('V4', mt_rand(), mt_rand(), mt_rand(), mt_rand()))), 0, 32);
+            $this->user_access_token = substr(str_replace('+', '.', base64_encode(pack('V4', mt_rand(), mt_rand(), mt_rand(), mt_rand()))), 0, 32);
+            
             $attributes = $this::getAttributes();
             $user = new User();
-            $user->saveUser($attributes);
+            $this->user_id = $user->saveUser($attributes);
+            
+            if($user->hasErrors()) { 
+                $this->errors = $user->getErrors();
+                return false;  
+            }
             return true;
         } else {
             return false;

@@ -13,19 +13,21 @@ $this->title = 'Uživatelé';
         <th>Email</th>
         <th>Práva</th>
     </tr>
-    <?php foreach ($users as $user): ?>
+    <?php 
+    $rights = array(0 => 'Administrátor', 1 => 'Šéfredaktor', 2 => 'Redaktor', 4 => 'Návštěvník');
+    foreach ($users as $user): ?>
         
     <tr>
         <td>
           <a href=""><?= Html::encode("{$user->user_login}") ?></a>
           <div class="row-actions">
               <span class="edit"><?= Html::a('Upravit', ["/admin0854/user_detail?user={$user->user_id}"], ['class'=>'btn btn-edit']) ?></span>  
-              <span class="delete"><a href="">Smazat</a></span>  
+              <span class="delete"><?= Html::a('Smazat', ["/admin0854/user_trash?u={$user->user_id}"], ['class'=>'btn btn-trash']) ?></span>   
           </div>  
         </td>
         <td>xx</td>
         <td><?= Html::encode("{$user->user_email}") ?></td>
-        <td><?= Html::encode("{$user->user_status}") ?></td>
+        <td><?= Html::encode("{$rights[$user->user_status]}") ?></td>
     </tr>
     <?php endforeach; ?>
     </table>

@@ -7,6 +7,16 @@ use yii\db\ActiveRecord;
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
     /**
+     * @return array the validation rules.
+     */
+    public function rules()
+    {
+        return [
+            [['user_login', 'user_email'], 'unique'],
+        ];
+    }
+    
+    /**
      * @inheritdoc
      */
     public static function findIdentity($id)
@@ -89,5 +99,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
             }
         }
         $this->save();
+        return $this->user_id;
     } 
 }

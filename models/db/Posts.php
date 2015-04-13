@@ -15,5 +15,16 @@ class Posts extends ActiveRecord
             }
         }
         $this->save();
+        return $this->post_id;
+    }
+    
+    /**
+     * @return array the validation rules.
+     */
+    public function rules()
+    {
+        return [
+            [['post_name'], 'unique'],
+        ];
     }
 }

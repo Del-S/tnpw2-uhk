@@ -14,4 +14,14 @@ class Category extends ActiveRecord
         }
         $this->save();
     }
+    
+    /**
+     * @return array the validation rules.
+     */
+    public function rules()
+    {
+        return [
+            [['category_name'], 'unique'],
+        ];
+    }
 }
