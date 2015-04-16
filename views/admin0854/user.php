@@ -14,7 +14,7 @@ $this->title = 'Uživatelé';
         <th>Práva</th>
     </tr>
     <?php 
-    $rights = array(0 => 'Administrátor', 1 => 'Šéfredaktor', 2 => 'Redaktor', 4 => 'Návštěvník');
+    $rights = array(0 => 'Administrátor', 1 => 'Šéfredaktor', 2 => 'Redaktor', 3 => 'Návštěvník');
     foreach ($users as $user): ?>
         
     <tr>

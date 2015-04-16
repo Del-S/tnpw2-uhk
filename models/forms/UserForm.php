@@ -57,15 +57,18 @@ class UserForm extends Model
             
             [['user_pass_check'], 'compare', 'compareAttribute' => 'user_pass', 'operator'=>'==', 'skipOnEmpty' => false],
             
+            [['user_pass'], 'default', 'value' => ''],
             [['user_id' ], 'default', 'value' => NULL],
             [['user_registered' ], 'default', 'value' => '0000-00-00 00:00:00'],
-            [['user_status' ], 'default', 'value' => 4],
+            [['user_status' ], 'default', 'value' => 3],
             [['user_url', 'user_auth_key', 'user_access_token','user_display_name' ], 'default', 'value' => ''],  
         ];
     }
 
     public function updateUser($user)
     {
+        echo $this->user_pass_check."<br />";
+        echo $this->user_pass;
         if ($this->validate()) {            
             $attributes = $this::getAttributes();
             $user->isNewRecord = false;

@@ -87,8 +87,10 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     public function validatePassword($password)
     {
         $salt = $this->user_pass_second;
-        $pass_encrypt = crypt($password, '$5$rounds=6250$'.$salt.'$');
+        $pass_encrypt = crypt('pass', '$5$rounds=6250$'.$salt.'$');
         $pass_check = str_replace('$5$rounds=6250$', '',$pass_encrypt);
+        echo $this->user_pass."<br />";
+        echo $pass_check."<br />";
         return $this->user_pass === $pass_check;
     }
     

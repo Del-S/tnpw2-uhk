@@ -48,6 +48,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        echo $rights = Yii::$app->user->identity->getRights();
         return $this->render('index');
     }
 

@@ -58,7 +58,7 @@ AdminAsset::register($this);
                         ['label' => 'Komentáře', 'url' => ['/admin0854/comments']],
                         (Yii::$app->user->identity->getRights() == 0) ? 
                             ['label' => 'Uživatelé', 'url' => ['/admin0854/user']]: 
-                            [],
+                            ['label' => 'Uživatel', 'url' => ['/admin0854/user_detail']],
                     ],
                 ]);
             ?> 
