@@ -1,6 +1,9 @@
 Admin
-- User - protect admin components by user rights
+- Where is get ID (post detail, cat deail..) - protect to only int and if model is created - get attributes
+- User - protect admin components by user rights. Note: common user can edit only himself (see user_detail - change view link and protect user->save with check current user) and admin can change everyone
 - Post - connect to categories (via post_meta)
+- Upload Images
+- Menu management
 - Enchance all forms
 - Rules for Forms - set right rules (now is default value)
 - Style Admin

@@ -46,6 +46,10 @@ $config = [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
         ],
+        'user' => [
+            'identityClass' => 'app\models\User',
+            'enableAutoLogin' => true,
+        ],
         'db' => require(__DIR__ . '/db.php'),
     ],
     'params' => $params,

@@ -56,7 +56,9 @@ AdminAsset::register($this);
                         ['label' => 'Příspěvky', 'url' => ['/admin0854/posts']],
                         ['label' => 'Kategorie', 'url' => ['/admin0854/category']],
                         ['label' => 'Komentáře', 'url' => ['/admin0854/comments']],
-                        ['label' => 'Uživatelé', 'url' => ['/admin0854/user']],
+                        (Yii::$app->user->identity->getRights() == 0) ? 
+                            ['label' => 'Uživatelé', 'url' => ['/admin0854/user']]: 
+                            [],
                     ],
                 ]);
             ?> 

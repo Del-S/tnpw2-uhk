@@ -142,22 +142,22 @@ class Admin0854Controller extends Controller
     
     public function actionUser_detail() {
         if (!\Yii::$app->user->isGuest) {
+            if(Yii::$app->user->identity->getRights() == 0) {
+                $user_id = $_GET['user'];
+                $user = User::find()->where(['user_id' => $user_id])->one();
+                $user_attributes = array_combine($user->attributes(), $user->getAttributes());
             
-            $user_id = $_GET['user'];
-            $user = User::find()->where(['user_id' => $user_id])->one();
-            $user_attributes = array_combine($user->attributes(), $user->getAttributes());
-            
-            $user_form = new forms\UserForm($user_attributes);
-            if ($user_form->load(Yii::$app->request->post()) && $user_form->updateUser($user)) {
-                return $this->refresh();
-            } else {    
-                $errors = $user_form->errors;
-                return $this->render('user_detail', [
-                    'user_form' => $user_form,
-                    'errors' => $errors,
-                ]);
-            }
-            
+                $user_form = new forms\UserForm($user_attributes);
+                if ($user_form->load(Yii::$app->request->post()) && $user_form->updateUser($user)) {
+                    return $this->refresh();
+                } else {    
+                    $errors = $user_form->errors;
+                    return $this->render('user_detail', [
+                        'user_form' => $user_form,
+                        'errors' => $errors,
+                    ]);
+                }
+            } else { $this->redirect('./user'); }     
         } else { $this->redirect('./login'); }
     }
     

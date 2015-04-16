@@ -61,6 +61,14 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     {
         return $this->user_auth_key;
     }
+    
+    /**
+     * @inheritdoc
+     */
+    public function getRights()
+    {
+        return $this->user_status;
+    }
 
     /**
      * @inheritdoc
