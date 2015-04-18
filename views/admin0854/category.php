@@ -16,15 +16,19 @@ $this->title = 'Kategorie';
         <th>Url</th>
         <th>Počet Postů</th>
     </tr>
-    <?php foreach ($categories as $category): ?> 
+    <?php 
+    $rights = Yii::$app->user->identity->getRights();
+    foreach ($categories as $category): ?> 
     
     <tr>
         <td><?= Html::encode("{$category->category_id}") ?></td>
         <td>
-          <a href=""><?= Html::encode("{$category->category_name}") ?></a>
+          <?= Html::encode("{$category->category_name}") ?>
           <div class="row-actions">
+              <?php if($rights >= 0 && $rights <= 1) { ?>
               <span class="edit"><?= Html::a('Upravit', ["/admin0854/category_detail?cat={$category->category_id}"], ['class'=>'btn btn-edit']) ?></span> 
-              <span class="delete"><?= Html::a('Smazat', ["/admin0854/category_trash?cat={$category->category_id}"], ['class'=>'btn btn-trash']) ?></span>  
+              <span class="delete"><?= Html::a('Smazat', ["/admin0854/category_trash?cat={$category->category_id}"], ['class'=>'btn btn-trash']) ?></span>
+              <?php } ?>
           </div>  
         </td>
         <td><?= Html::encode("{$category->category_title}") ?></td>

@@ -15,15 +15,20 @@ $this->title = 'Příspěvky';
         <th>Datum</th>
         <th>Autor</th>
     </tr>
-    <?php foreach ($posts as $post): ?>
-        
+    <?php 
+    $rights = Yii::$app->user->identity->getRights();
+    $id = Yii::$app->user->id;
+    foreach ($posts as $post): ?>  
     <tr>
         <td><?= Html::encode("{$post->post_id}") ?></td>
         <td>
-          <a href=""><?= Html::encode("{$post->post_name}") ?></a>
+          <?= Html::encode("{$post->post_name}") ?>
           <div class="row-actions">
-              <span class="edit"><?= Html::a('Upravit', ["/admin0854/post_detail?post={$post->post_id}"], ['class'=>'btn btn-edit']) ?></span>  
-              <span class="delete"><?= Html::a('Smazat', ["/admin0854/post_trash?post={$post->post_id}"], ['class'=>'btn btn-trash']) ?></span>  
+              <?php if(($rights >= 0 && $rights <= 1) || ($id == $post->post_author)) { ?>
+              <span class="edit"><?= Html::a('Upravit', ["/admin0854/post_detail?post={$post->post_id}"], ['class'=>'btn btn-edit']) ?></span>
+              <?php } if($rights >= 0 && $rights <= 1) { ?>
+              <span class="delete"><?= Html::a('Smazat', ["/admin0854/post_trash?post={$post->post_id}"], ['class'=>'btn btn-trash']) ?></span> 
+              <?php } ?>
           </div>  
         </td>
         <td>xx</td>

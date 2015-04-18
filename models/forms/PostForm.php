@@ -19,23 +19,21 @@ class PostForm extends Model
     public $post_excerpt;
     public $post_status;
     public $comment_status;
-    public $post_name;
-    public $post_parent;
     public $guid;
+    public $post_parent;
     public $menu_order;
     public $post_type;
     public $comment_count;
     public $errors;
 
     public function __construct( $data = [], $config = [] ) {
-        /* Check this !!!!! */
-        $this->post_author = Yii::$app->user->getID();
-        
         foreach($data as $k => $v) {
             if($this->hasProperty($k)) {
                 $this->$k = $v;
             }
         }
+        
+        if(!isset($this->post_author) || $this->post_author == '') { $this->post_author = Yii::$app->user->getID(); }
         
         parent::__construct();
     }
@@ -46,7 +44,7 @@ class PostForm extends Model
     public function attributeLabels()
     {
         return [
-            'post_name' => 'Post Link',
+            'guid' => 'Post Link',
         ];
     }
     
@@ -64,7 +62,7 @@ class PostForm extends Model
             [['post_title'], 'required'],
             [['post_author' ], 'default', 'value' => 1],
             [['post_parent', 'menu_order', 'comment_count' ], 'default', 'value' => 0],
-            [['post_content', 'post_excerpt', 'post_name', 'guid' ], 'default', 'value' => ''],
+            [['post_content', 'post_excerpt', 'guid', 'guid' ], 'default', 'value' => ''],
             [['post_date', 'post_date_gmt' ], 'default', 'value' => '0000-00-00 00:00:00'],
             [['post_status' ], 'default', 'value' => 'publish'],
             [['comment_status' ], 'default', 'value' => 'open'],
@@ -75,9 +73,9 @@ class PostForm extends Model
     public function updatePost($post)
     {
         if ($this->validate()) {
-            if(!isset($this->post_name) || $this->post_name == '') { $this->post_name = $this->post_title; }
+            if(!isset($this->guid) || $this->guid == '') { $this->guid = $this->post_title; }
             $formate = new Formate();
-            $this->post_name = $formate->createGuid($this->post_name);
+            $this->guid = $formate->createGuid($this->guid);
             
             $attributes = $this::getAttributes();
             $post->isNewRecord = false;
@@ -94,17 +92,22 @@ class PostForm extends Model
     }
     
     public function createPost()
-    {
+    {    
         if ($this->validate()) {
-            if(!isset($this->post_name) || $this->post_name == '') { $this->post_name = $this->post_title; }
+            if(!isset($this->guid) || $this->guid == '') { $this->guid = $this->post_title; }
             $formate = new Formate();
-            $this->post_name = $formate->createGuid($this->post_name);
+            $this->guid = $formate->createGuid($this->guid);
+            
+            $this->post_date = date('Y-m-d H:i:s');
+            $this->post_date_gmt = gmdate('Y-m-d H:i:s');
             
             $post = new Posts();
             /* Check if url already exists */
-            $count = $post->find()->where(['like', 'post_name', $this->post_name.'%', false])->count();
-            $count++;
-            $this->post_name .= "-".$count;
+            $count = $post->find()->where(['like', 'guid', $this->guid.'%', false])->count();
+            if($count != 0) {
+                $count++;
+                $this->guid .= "-".$count;
+            }
      
             $attributes = $this::getAttributes();
             $this->post_id = $post->savePost($attributes);

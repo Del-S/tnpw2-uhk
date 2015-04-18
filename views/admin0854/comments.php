@@ -16,7 +16,7 @@ $this->title = 'Komentáře';
     <tr>
         <td><?= Html::encode("{$comment->comment_author}") ?></td>
         <td>
-          <a href=""><?= Html::encode("{$comment->comment_content}") ?></a>
+          <?= Html::encode("{$comment->comment_content}") ?>
           <div class="row-actions">
               <span class="delete"><?= Html::a('Smazat', ["/admin0854/comment_trash?comm={$comment->comment_id}"], ['class'=>'btn btn-trash']) ?></span>  
           </div>  

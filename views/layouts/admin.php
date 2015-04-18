@@ -49,14 +49,18 @@ AdminAsset::register($this);
         <?php if (!\Yii::$app->user->isGuest) { ?>
             <div class="nav admin">
             <?php
+                $rights = Yii::$app->user->identity->getRights();
                 echo Nav::widget([
                     'options' => ['class' => 'navbar-nav navbar-left'],
                     'items' => [
                         ['label' => 'Nástěnka', 'url' => ['/admin0854/index']],
-                        ['label' => 'Příspěvky', 'url' => ['/admin0854/posts']],
-                        ['label' => 'Kategorie', 'url' => ['/admin0854/category']],
-                        ['label' => 'Komentáře', 'url' => ['/admin0854/comments']],
-                        (Yii::$app->user->identity->getRights() == 0) ? 
+                        ($rights >= 0 && $rights <= 2) ? 
+                        ['label' => 'Příspěvky', 'url' => ['/admin0854/posts']]: [],
+                        ($rights >= 0 && $rights <= 2) ?
+                        ['label' => 'Kategorie', 'url' => ['/admin0854/category']]: [],
+                        ($rights >= 0 && $rights <= 2) ?
+                        ['label' => 'Komentáře', 'url' => ['/admin0854/comments']]: [],
+                        ($rights == 0) ? 
                             ['label' => 'Uživatelé', 'url' => ['/admin0854/user']]: 
                             ['label' => 'Uživatel', 'url' => ['/admin0854/user_detail']],
                     ],

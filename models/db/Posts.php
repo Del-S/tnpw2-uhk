@@ -12,6 +12,7 @@ class Posts extends ActiveRecord
         foreach($attributes as $k => $v) {
             if($this->hasAttribute($k)) {
                 $this->$k = $v;
+                echo $k."----".$v."<br />";
             }
         }
         $this->save();
@@ -24,7 +25,7 @@ class Posts extends ActiveRecord
     public function rules()
     {
         return [
-            [['post_name'], 'unique'],
+            [['guid'], 'unique'],
         ];
     }
 }

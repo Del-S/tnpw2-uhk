@@ -63,26 +63,34 @@ class Admin0854Controller extends Controller
         if (!\Yii::$app->user->isGuest) {
             $rights = Yii::$app->user->identity->getRights();
             if( $rights >= 0 && $rights <= 2 ) {
+                if($rights == 2 && $post->post_author == Yii::$app->user->id) { $this->redirect('./posts'); }
+                
                 $post_id = $_GET['post'];
                 if(is_numeric($post_id)) {
                     $post = db\Posts::find()->where(['post_id' => $post_id])->one();
                     $post_attributes = array_combine($post->attributes(), $post->getAttributes());
+                    $post_categories = db\PostMeta::find()->where(['post_id' => $post_id, 'meta_key' => 'post_categories'])->one();
+                    $post_categories_attr = [];
+                    if(isset($post_categories) && $post_categories != '') {
+                        $post_categories_attr = array_combine($post_categories->attributes(), $post_categories->getAttributes());
+                    }
                 } else { $this->redirect('./posts'); }
             
+                $categories = db\Category::find()->all();
+                $post_meta_form = new forms\PostMetaForm($post_categories_attr);
                 $post_form = new forms\PostForm($post_attributes);
-                if($rights == 2 && $post->post_author == Yii::$app->user->id) {
-                    if ($post_form->load(Yii::$app->request->post()) && $post_form->updatePost($post)) {
-                        return $this->refresh();
-                    } else {     
-                        return $this->render('post_detail', [
-                            'post_form' => $post_form,
-                        ]);
-                    }  
-                } else { 
+                
+                if (($post_form->load(Yii::$app->request->post()) && $post_form->updatePost($post)) && ($post_meta_form->load(Yii::$app->request->post())) && $post_meta_form->savePostMeta($post_form->post_id)) {
+                    return $this->refresh();
+                } else {  
+                    $errors = $post_form->errors;
                     return $this->render('post_detail', [
                         'post_form' => $post_form,
-                    ]); 
-                }
+                        'post_meta_form' => $post_meta_form,
+                        'categories' => $categories,
+                        'errors' => $errors,
+                    ]);
+                }  
             } else { $this->redirect('./posts'); }
         } else { $this->redirect('./login'); }
     }
@@ -91,14 +99,18 @@ class Admin0854Controller extends Controller
         if (!\Yii::$app->user->isGuest) {
             $rights = Yii::$app->user->identity->getRights();
             if( $rights >= 0 && $rights <= 2 ) {
+                $categories = db\Category::find()->all();
                 $post_form = new forms\PostForm();
-                if ($post_form->load(Yii::$app->request->post()) && $post_form->createPost()) {
+                $post_meta_form = new forms\PostMetaForm();
+                if (($post_form->load(Yii::$app->request->post()) && $post_form->createPost()) && ($post_meta_form->load(Yii::$app->request->post())) && $post_meta_form->savePostMeta($post_form->getPostID())) {
                     $post_id = $post_form->getPostID();
                     return $this->redirect('./post_detail?post='.$post_id);
                 } else {   
                     $errors = $post_form->errors;
                     return $this->render('post_new', [
                         'post_form' => $post_form,
+                        'post_meta_form' => $post_meta_form,
+                        'categories' => $categories,
                         'errors' => $errors,
                     ]);
                 }

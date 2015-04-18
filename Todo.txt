@@ -1,13 +1,9 @@
 Admin
-- Admin menu show by rights
 - Enchance all forms (check if there are no missing inputs)
-- Post - connect to categories (via post_meta)
+- Rules for Forms - set right rules (now is default value)
 - Upload Images
 - Menu management
-- Rules for Forms - set right rules (now is default value)
 - Style Admin
-
-- Post detail errors too? Maybe?
 
 Front - All
 - Once categories are connected to posts do:

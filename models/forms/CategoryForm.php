@@ -32,7 +32,7 @@ class CategoryForm extends Model
     {
         return [
             [['category_name'], 'required'],
-            [['category_title', 'category_parent', 'guid', 'menu_order' ], 'default'],
+            [['category_title', 'category_parent', 'guid', 'menu_order' ], 'default', 'value' => 0],
         ];
     }
     

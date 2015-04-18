@@ -19,7 +19,7 @@ $this->title = 'Uživatelé';
         
     <tr>
         <td>
-          <a href=""><?= Html::encode("{$user->user_login}") ?></a>
+          <?= Html::encode("{$user->user_login}") ?>
           <div class="row-actions">
               <span class="edit"><?= Html::a('Upravit', ["/admin0854/user_detail?user={$user->user_id}"], ['class'=>'btn btn-edit']) ?></span>  
               <span class="delete"><?= Html::a('Smazat', ["/admin0854/user_trash?u={$user->user_id}"], ['class'=>'btn btn-trash']) ?></span>   
