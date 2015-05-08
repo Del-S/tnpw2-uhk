@@ -18,11 +18,10 @@ class PostForm extends Model
     public $post_title;
     public $post_excerpt;
     public $post_status;
-    public $comment_status;
     public $guid;
     public $post_parent;
-    public $menu_order;
     public $post_type;
+    public $comment_status;
     public $comment_count;
     public $errors;
 
@@ -44,7 +43,10 @@ class PostForm extends Model
     public function attributeLabels()
     {
         return [
-            'guid' => 'Post Link',
+            'post_title' => 'Nadpis příspěvku',
+            'guid' => 'Odkaz příspěvku',
+            'post_content' => '',
+            'post_excerpt' => 'Stručný výpis příspěvku',
         ];
     }
     
@@ -58,10 +60,10 @@ class PostForm extends Model
     public function rules()
     {
         return [
-            // name, email, subject and body are required
+            // required and default values
             [['post_title'], 'required'],
             [['post_author' ], 'default', 'value' => 1],
-            [['post_parent', 'menu_order', 'comment_count' ], 'default', 'value' => 0],
+            [['post_parent', 'comment_count' ], 'default', 'value' => 0],
             [['post_content', 'post_excerpt', 'guid', 'guid' ], 'default', 'value' => ''],
             [['post_date', 'post_date_gmt' ], 'default', 'value' => '0000-00-00 00:00:00'],
             [['post_status' ], 'default', 'value' => 'publish'],

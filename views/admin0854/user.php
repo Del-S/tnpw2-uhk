@@ -3,26 +3,28 @@ use yii\helpers\Html;
 
 $this->title = 'Uživatelé';
 ?>
-    <h1><?= Html::encode($this->title) ?></h1>
-    <div class='new-post'><?= Html::a('Nový Uživatel', ["/admin0854/user_new"], ['class'=>'btn btn-new']) ?></div>
+    <h1><?= Html::encode($this->title) ?>
+    <?= Html::a('Nový Uživatel', ["/admin0854/user_new"], ['class'=>'btn btn-new']) ?></h1>
 
-    <table>
-    <tr>
-        <th>Uživatelské jméno</th>
-        <th>Jméno</th>
-        <th>Email</th>
-        <th>Práva</th>
-    </tr>
+    <table class="list-table widefat">
+    <thead>
+        <tr>
+            <th>Uživatelské jméno</th>
+            <th>Jméno</th>
+            <th>Email</th>
+            <th>Práva</th>
+        </tr>
+    </thead>
     <?php 
     $rights = array(0 => 'Administrátor', 1 => 'Šéfredaktor', 2 => 'Redaktor', 3 => 'Návštěvník');
     foreach ($users as $user): ?>
         
     <tr>
-        <td>
-          <?= Html::encode("{$user->user_login}") ?>
+        <td class="actions">
+          <?= Html::a($user->user_login, ["/admin0854/user_detail?user={$user->user_id}"], ['class'=>'btn-edit-main']) ?>
           <div class="row-actions">
-              <span class="edit"><?= Html::a('Upravit', ["/admin0854/user_detail?user={$user->user_id}"], ['class'=>'btn btn-edit']) ?></span>  
-              <span class="delete"><?= Html::a('Smazat', ["/admin0854/user_trash?u={$user->user_id}"], ['class'=>'btn btn-trash']) ?></span>   
+              <span class="edit"><?= Html::a('Upravit', ["/admin0854/user_detail?user={$user->user_id}"], ['class'=>'btn-edit']) ?></span>  
+              <span class="delete"><?= Html::a('Smazat', ["/admin0854/user_trash?u={$user->user_id}"], ['class'=>'btn-trash']) ?></span>   
           </div>  
         </td>
         <td>xx</td>

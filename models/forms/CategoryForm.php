@@ -26,13 +26,26 @@ class CategoryForm extends Model
     }
     
     /**
+     * @return array customized attribute labels
+     */
+    public function attributeLabels()
+    {
+        return [
+            'category_name' => 'Název kategorie',
+            'category_title' => 'Popis kategorie',
+            'category_parent' => 'Nadřezená kategorie',
+            'guid' => 'Odkaz kategorie',
+        ];
+    }
+    
+    /**
      * @return array the validation rules.
      */
     public function rules()
     {
         return [
             [['category_name'], 'required'],
-            [['category_title', 'category_parent', 'guid', 'menu_order' ], 'default', 'value' => 0],
+            [['category_title', 'category_parent', 'guid', 'menu_order'], 'default', 'value' => 0],
         ];
     }
     

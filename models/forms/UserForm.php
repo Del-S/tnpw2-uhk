@@ -38,7 +38,14 @@ class UserForm extends Model
     public function attributeLabels()
     {
         return [
-            'post_name' => 'Post Link',
+            'user_login' => 'Uživatelské jméno',
+            'user_pass' => 'Heslo',
+            'user_pass_check' => 'Kontrola hesla',
+            'user_nickname' => 'Přezdívka',
+            'user_email' => 'Email (vyžadováno)',
+            'user_url' => 'Webová stránka',
+            'user_status' => 'Úroveň',
+            'user_display_name' => 'Veřejně zobrazovat jako',
         ];
     }
     

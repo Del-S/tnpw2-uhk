@@ -1,0 +1,156 @@
+html,
+body {
+    height: 100%;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -60px;
+    padding: 50px 0 60px;
+    .container_admin {
+      padding: 0 20px 20px;
+      margin-left: 160px;
+    }
+    h1 {
+      font-size: 26px;
+    }
+}
+
+.footer {
+    height: 60px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+.error-summary {
+    color: #a94442;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
+}
+
+.admin-back {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    width: 160px;
+    background-color: #222;
+}
+
+.nav.admin {
+    position: absolute;
+    float: left;
+    z-index: 9990;
+    width: 160px;
+    background-color: #222;
+    li {
+        width: 100%;
+        background-color: #222;
+        a {
+            color:white;
+            &:hover {
+                background-color: black;
+                color: #45bbe6;
+            }
+        }
+    }
+}
+
+.form-group {
+    float: left;
+    width: 100%;
+}
+
+a.btn-new { 
+    margin-left: 10px;
+    position: relative;
+    top: -2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background: #e0e0e0;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+table.widefat {
+    border: 1px solid #e5e5e5;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+.widefat {
+    border-spacing: 0;
+    width: 100%;
+    clear: both;
+    margin: 0;
+    thead th {
+        border-bottom: 1px solid #e1e1e1;
+        padding: 8px 10px; 
+    }
+    td {
+        padding: 8px 10px;
+        vertical-align: top;
+        font-size: 13px;
+    	line-height: 1.5em;
+    }
+    a:hover {
+        text-decoration: none;
+    }
+}
+
+.btn-edit-main {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.actions {
+    &:hover .row-actions { visibility: visible; }
+}
+
+.row-actions {
+    margin-top: 5px;
+    visibility: hidden;
+    a {
+        padding-right: 15px;
+    } 
+    a.btn-trash {
+        color: #a00;
+        &:hover { color: #d00; }
+    }
+}
+
+.col-left { 
+    width: 35%;
+    float: left;
+}
+
+.col-right { 
+    width: 65%;
+    float: right;
+}
+
+.form-control {
+    width: 95%;
+    padding: 3px 5px;
+    height: 30px;
+}
+
+/* details */
+#post-detail-wrap {
+    margin-right: 300px;
+    #post-detail-sidebar {
+        width: 280px;
+        margin-right: -300px;
+        float: right;
+    }
+
+    #post-detail-main {
+        width: 100%;
+        float: left;
+    }
+}

@@ -19,6 +19,7 @@ AdminAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <link rel="stylesheet" id="open-sans-css" href="//fonts.googleapis.com/css?family=Open+Sans%3A300italic%2C400italic%2C600italic%2C300%2C400%2C600&amp;subset=latin%2Clatin-ext" type="text/css" media="all">
 </head>
 <body>
 
@@ -27,7 +28,7 @@ AdminAsset::register($this);
         <?php
             NavBar::begin([
                 'brandLabel' => 'Admin',
-                'brandUrl' => Yii::$app->homeUrl,
+                'brandUrl' => ['/admin0854/index'],
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',
                 ],
@@ -35,7 +36,6 @@ AdminAsset::register($this);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-                    ['label' => 'Home', 'url' => ['/admin0854/index']],
                     Yii::$app->user->isGuest ?
                         ['label' => 'Login', 'url' => ['/admin0854/login']] :
                         ['label' => 'Logout (' . Yii::$app->user->identity->user_login . ')',
@@ -47,6 +47,7 @@ AdminAsset::register($this);
         ?>
         
         <?php if (!\Yii::$app->user->isGuest) { ?>
+            <div class="admin-back"></div>
             <div class="nav admin">
             <?php
                 $rights = Yii::$app->user->identity->getRights();
@@ -56,6 +57,8 @@ AdminAsset::register($this);
                         ['label' => 'Nástěnka', 'url' => ['/admin0854/index']],
                         ($rights >= 0 && $rights <= 2) ? 
                         ['label' => 'Příspěvky', 'url' => ['/admin0854/posts']]: [],
+                        ($rights >= 0 && $rights <= 2) ?
+                        ['label' => 'Media', 'url' => ['/admin0854/upload']]: [],
                         ($rights >= 0 && $rights <= 2) ?
                         ['label' => 'Kategorie', 'url' => ['/admin0854/category']]: [],
                         ($rights >= 0 && $rights <= 2) ?
@@ -76,7 +79,7 @@ AdminAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+            <p class="pull-left"></p>
             <p class="pull-right"><?= Yii::powered() ?></p>
         </div>
     </footer>

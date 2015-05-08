@@ -45,11 +45,12 @@ $this->title = 'Detail příspěvku';
         foreach($categories as $category) { 
             $checkboxitems[$category->category_id] = $category->category_name;
         } 
-        $post_meta_form->meta_key = 'post_categories';
-        $post_meta_form->post_id = $post_form->post_id;
+        $category_meta_form->meta_key = 'post_categories';
+        $category_meta_form->post_id = $post_form->post_id;
     ?>
-    <?= Html::activeHiddenInput($post_meta_form, 'meta_key'); ?>
+    <?= Html::activeHiddenInput($category_meta_form, 'meta_key'); ?>
+    <?= Html::activeHiddenInput($category_meta_form, 'post_id'); ?>
     <div class="form-category">
-       <?= $form->field($post_meta_form, 'meta_value')->checkboxList($checkboxitems); ?>
+       <?= $form->field($category_meta_form, 'meta_value')->checkboxList($checkboxitems); ?>
     </div>
     <?php ActiveForm::end(); ?>

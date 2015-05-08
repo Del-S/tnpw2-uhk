@@ -16,6 +16,7 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            'loginUrl' => ['admin0854/login'],  
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -45,10 +46,6 @@ $config = [
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
-        ],
-        'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
         ],
         'db' => require(__DIR__ . '/db.php'),
     ],
