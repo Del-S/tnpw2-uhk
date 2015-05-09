@@ -5,7 +5,7 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Příspěvky';
 ?>
     <h1><?= Html::encode($this->title) ?>
-        <?= Html::a('Nový Příspěvek', ["/admin0854/post_new"], ['class'=>'btn btn-new']) ?></h1>
+        <?= Html::a('Nový příspěvek', ["/admin0854/post_new"], ['class'=>'btn btn-new']) ?></h1>
 
     <table class="list-table widefat">
     <thead>

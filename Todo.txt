@@ -1,12 +1,9 @@
-Admin
-- Style Admin - details (post-detail under construction), new and its done (and top menu)
-- Upload images is done (implement to tinymce)
-- Menu management
-- post meta - keywords, seo title, seo label
-- kategorie -> jako submenu pro příspěvky
-
 Front - All
 - Once categories are connected to posts do:
  - Menu, Show categories, category detail (posts), post.
  - Footer
 - Style
+
+Admin
+- Upload images is done (implement to tinymce)
+- Menu management

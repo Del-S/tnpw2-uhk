@@ -43,7 +43,7 @@ class PostForm extends Model
     public function attributeLabels()
     {
         return [
-            'post_title' => 'Nadpis příspěvku',
+            'post_title' => '',
             'guid' => 'Odkaz příspěvku',
             'post_content' => '',
             'post_excerpt' => 'Stručný výpis příspěvku',

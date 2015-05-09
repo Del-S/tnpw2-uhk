@@ -23,7 +23,9 @@ class CategoryMetaForm extends Model
                 $this->$k = $v;
             }
         }
-        $this->meta_value_old = $data['meta_value'];
+        if(array_key_exists('meta_value', $data)) {
+            $this->meta_value_old = $data['meta_value'];
+        } else { $this->meta_value_old = []; }
         
         parent::__construct();
     }
@@ -51,9 +53,7 @@ class CategoryMetaForm extends Model
 
     public function saveCategoryMeta()
     {
-        if ($this->validate()) {
-            print_r($this->meta_value_old);
-            print_r($this->meta_value);    
+        if ($this->validate()) { 
             if(is_array($this->meta_value)) {            
                 /* add post ids to category */
                 foreach($this->meta_value as $key => $form_category_id) {

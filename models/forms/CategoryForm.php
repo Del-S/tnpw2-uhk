@@ -31,10 +31,10 @@ class CategoryForm extends Model
     public function attributeLabels()
     {
         return [
-            'category_name' => 'Název kategorie',
-            'category_title' => 'Popis kategorie',
+            'category_name' => 'Název',
+            'category_title' => 'Popis',
             'category_parent' => 'Nadřezená kategorie',
-            'guid' => 'Odkaz kategorie',
+            'guid' => 'Odkaz pro kategorii',
         ];
     }
     

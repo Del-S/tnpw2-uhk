@@ -6,6 +6,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\UploadedFile;
+use yii\base\Model;
 use app\models\forms\UploadForm;
 use app\models\User;
 use app\models\db;
@@ -28,7 +29,7 @@ class Admin0854Controller extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['index', 'posts', 'post_new', 'post_detail', 'upload', 'category', 'category_detail', 'comments', 'user', 'user_detail', 'options', 'logout'],
+                        'actions' => ['index', 'posts', 'post_new', 'post_detail', 'post_trash', 'upload', 'category', 'category_detail', 'category_trash', 'comments', 'comment_trash', 'user', 'user_detail', 'user_new', 'user_trash', 'upload', 'options', 'logout'],
                         'roles' => ['@'],
                     ],
                     // everything else is denied
@@ -74,6 +75,7 @@ class Admin0854Controller extends Controller
             $posts = db\Posts::find()
                 ->select(['posts.*', 'user.user_display_name'])
                 ->leftJoin('user', '`user`.`user_id` = `posts`.`post_author`')
+                ->where(['!=', 'post_status', 'trash'])
                 ->all();       
                 
             foreach($posts as $post) {
@@ -97,6 +99,25 @@ class Admin0854Controller extends Controller
         } else {  $this->redirect('./index'); }
     }
     
+    public function getPostMetaForms($post_id) {
+        $post_meta_forms_data = Yii::$app->params['postMetaForm'];
+        $post_meta_forms = [];
+        foreach($post_meta_forms_data as $k => $v) {
+            foreach($v as $meta_key => $type) {
+                $post_meta_attributes = [];
+                $post_meta = db\PostMeta::find()->where(['post_id' => $post_id, 'meta_key' => $meta_key])->one();
+                if(is_object($post_meta)) {
+                    $post_meta_attributes = array_combine($post_meta->attributes(), $post_meta->getAttributes());
+                    $post_meta_forms[$meta_key] = new forms\PostMetaForm($post_meta_attributes);
+                } else { 
+                    $dummy = array('post_id' => $post_id, 'meta_key' => $meta_key, 'meta_value' => '');
+                    $post_meta_forms[$meta_key] = new forms\PostMetaForm($dummy);
+                }
+            }
+        }
+        return $post_meta_forms;
+    }
+    
     public function actionPost_detail() {
         $rights = Yii::$app->user->identity->getRights();
         if( $rights >= 0 && $rights <= 2 ) {
@@ -114,8 +135,13 @@ class Admin0854Controller extends Controller
             $categories = db\Category::find()->all();
             $category_meta_form = new forms\CategoryMetaForm($categories_attr);
             $post_form = new forms\PostForm($post_attributes);
-             
-            if (($post_form->load(Yii::$app->request->post()) && $post_form->updatePost($post)) && ($category_meta_form->load(Yii::$app->request->post())) && $category_meta_form->saveCategoryMeta()) {
+            $post_meta_forms = $this->getPostMetaForms($post_id);
+            
+            if (($post_form->load(Yii::$app->request->post()) && $post_form->updatePost($post)) && ($category_meta_form->load(Yii::$app->request->post())) && $category_meta_form->saveCategoryMeta() && Model::loadMultiple($post_meta_forms, Yii::$app->request->post()) && Model::validateMultiple($post_meta_forms)) {
+                foreach ($post_meta_forms as $post_meta_form) {
+                    $post_meta_form->savePostMeta();
+                }
+                
                 return $this->refresh();
             } else {  
                 $errors = $post_form->errors;
@@ -124,6 +150,8 @@ class Admin0854Controller extends Controller
                     'category_meta_form' => $category_meta_form,
                     'categories' => $categories,
                     'errors' => $errors,
+                    'post_meta_blocks' => $post_meta_forms,
+                    'post_meta_blocks_settings' => Yii::$app->params['postMetaForm'],
                 ]);
             }  
         } else { $this->redirect('./posts'); }
@@ -135,8 +163,18 @@ class Admin0854Controller extends Controller
             $categories = db\Category::find()->all();
             $post_form = new forms\PostForm();
             $category_meta_form = new forms\CategoryMetaForm();
-            if (($post_form->load(Yii::$app->request->post()) && $post_form->createPost()) && ($category_meta_form->load(Yii::$app->request->post())) && $category_meta_form->saveCategoryMeta()) {
+            $post_meta_forms = $this->getPostMetaForms('');
+            
+            if (($post_form->load(Yii::$app->request->post()) && $post_form->createPost()) && ($category_meta_form->load(Yii::$app->request->post())) && $category_meta_form->validate() && Model::loadMultiple($post_meta_forms, Yii::$app->request->post()) && Model::validateMultiple($post_meta_forms)) {
                 $post_id = $post_form->getPostID();
+                
+                $category_meta_form->post_id = $post_id;
+                $category_meta_form->saveCategoryMeta();
+                foreach ($post_meta_forms as $post_meta_form) {
+                    $post_meta_form->post_id = $post_id;
+                    $post_meta_form->savePostMeta();
+                }
+                
                 return $this->redirect('./post_detail?post='.$post_id);
             } else {   
                 $errors = $post_form->errors;
@@ -145,6 +183,8 @@ class Admin0854Controller extends Controller
                     'category_meta_form' => $category_meta_form,
                     'categories' => $categories,
                     'errors' => $errors,
+                    'post_meta_blocks' => $post_meta_forms,
+                    'post_meta_blocks_settings' => Yii::$app->params['postMetaForm'],
                 ]);
             }
         } else { $this->redirect('./posts'); }
@@ -222,6 +262,8 @@ class Admin0854Controller extends Controller
                 if(is_numeric($category_id)) {
                     $category = db\Category::find()->where(['category_id' => $category_id])->one();
                     $category->delete();
+                    $category_metas = db\CategoryMeta::find()->where(['category_id' => $category_id])->all();
+                    foreach($category_metas as $category_meta) { $category_meta->delete(); }
                 }
             }
             $this->redirect('./category');
