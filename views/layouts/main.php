@@ -4,6 +4,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\helpers\Url;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -16,9 +17,11 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <link rel="stylesheet" id="open-sans-css" href="//fonts.googleapis.com/css?family=Open+Sans%3A300italic%2C400italic%2C600italic%2C300%2C400%2C600&amp;subset=latin%2Clatin-ext" type="text/css" media="all">
 </head>
 <body>
 
@@ -26,35 +29,33 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => 'My Company',
-                'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',
                 ],
             ]);
             echo Nav::widget([
-                'options' => ['class' => 'navbar-nav navbar-right'],
-                'items' => [
-                    ['label' => 'Home', 'url' => ['/site/index']],
-                    ['label' => 'About', 'url' => ['/site/about']],
-                    ['label' => 'Contact', 'url' => ['/site/contact']],
-                    ['label' => 'Category', 'url' => ['/site/category']],
-                ],
+                'options' => ['class' => 'navbar-nav navbar-left'],
+                'items' => Yii::$app->params['menuSettings'],
             ]);
             NavBar::end();
         ?>
 
-        <div class="container">
-            <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
-            <?= $content ?>
-        </div>
+        <?= $content ?>
     </div>
 
     <footer class="footer">
         <div class="container">
-            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+            <div class="pull-left">
+            <?php NavBar::begin([
+                'options' => [
+                    'class' => 'navbar-inverse navbar-footer',
+                ],
+            ]);
+            echo Nav::widget([
+                'options' => ['class' => 'navbar-nav navbar-left'],
+                'items' => Yii::$app->params['menuFooterSettings'],
+            ]);
+            NavBar::end(); ?></div>
             <p class="pull-right"><?= Yii::powered() ?></p>
         </div>
     </footer>

@@ -1,9 +1,9 @@
+- Fix routing with dashes..!!!!!
+
 Front - All
-- Once categories are connected to posts do:
- - Menu, Show categories, category detail (posts), post.
- - Footer
-- Style
+- Style (category detail, post detail, little twaks everywhere)
 
 Admin
+- featured image to post (slider image post)
 - Upload images is done (implement to tinymce)
 - Menu management

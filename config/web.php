@@ -44,7 +44,9 @@ $config = [
             'rules' => array(
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:(post|category)>/<slug:\w+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                '/<action:\w+>' => 'site/<action>',
             ),
         ],
         'db' => require(__DIR__ . '/db.php'),

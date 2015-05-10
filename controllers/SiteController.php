@@ -6,32 +6,12 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use app\models\forms\ContactForm;
+//use app\models\forms\ContactForm;
+use app\models\db;
+use app\commands\SidebarController;
 
 class SiteController extends Controller
 {
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
 
     public function actions()
     {
@@ -39,35 +19,26 @@ class SiteController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
         ];
     }
 
     public function actionIndex()
     {
-        echo $rights = Yii::$app->user->identity->getRights();
-        return $this->render('index');
+        $post = [];
+        $categories = [];
+        $posts = db\Posts::find()->orderBy(['post_date' => SORT_DESC])->all();
+        if(is_array($posts)) {
+            foreach($posts as $post) {
+                $categories[$post->post_id] = $post->getCategories(true);
+            }
+        }
+        return $this->render('index', [
+            'posts' => $posts,
+            'categories' => $categories,
+        ]);  
     }
 
-    public function actionLogin()
-    {
-        if (!\Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
-        }
-    }
-
+    /*
     public function actionContact()
     {
         $model = new ContactForm();
@@ -85,5 +56,5 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
-    }
+    } */
 }

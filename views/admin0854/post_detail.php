@@ -45,7 +45,8 @@ $this->title = 'Detail příspěvku';
                     ],
                     'skin' => 'light',
                     'language' => "cs",
-                    'menubar' => false,
+                    'menubar' => true,
+                    'entity_encoding' => "raw",
                 ]);  ?>
         </div>
      
