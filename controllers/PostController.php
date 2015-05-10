@@ -23,7 +23,15 @@ class PostController extends Controller
 
     public function actionView()
     {
-        $guid = $_GET['slug'];
+        $guid = '';
+        $category_guid = '';
+        if(array_key_exists('slug', $_GET)) {
+            $guid = $_GET['slug'];
+        }
+        if(array_key_exists('category', $_GET)) {
+            $category_guid = $_GET['category'];
+        }
+        $category = db\Category::find()->where(['guid' => $category_guid])->one();
         $post = db\Posts::find()->where(['guid' => $guid])->one();
         $comment_form = new CommentForm;
         if ($comment_form->load(Yii::$app->request->post()) && $comment_form->comment($post->post_id)) { 
@@ -34,6 +42,7 @@ class PostController extends Controller
             $categories = $post->getCategories(false);
             return $this->render('post', [
                 'post' => $post,
+                'category' => $category,
                 'categories' => $categories,
                 'comments' => $comments,
                 'comment_form' => $comment_form,

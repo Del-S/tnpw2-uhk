@@ -19,11 +19,11 @@ $(document).ready(function(){
   buildPager: function(slideIndex){
     switch(slideIndex){
       case 0:
-        return 'dfbdbdbdndfn';
+        return 'Link 1';
       case 1:
-        return 'dfbdbdbdndfn';
+        return 'Link 2';
       case 2:
-        return 'dfbdbdbdndfn';
+        return 'Link 3';
     }
   }
 });
@@ -66,7 +66,7 @@ $(document).ready(function(){
                             if(array_key_exists($post->post_id, $categories)) {
                             $caregory_info = $categories[$post->post_id]; } ?>
                             <div class="post_detail">
-                                <div class="thumb"><img src="#" alt="" width="128" height="128" /></div>
+                                <div class="thumb"><img src="<?php echo Url::to(['/img/dummy.png']); ?>" alt="" width="128" height="128" /></div>
                                 <h2 class="title"><a href="<?php echo Url::to(['post/'.$post->guid]); ?>"><?= Html::encode($post->post_title) ?></a></h2>
                                 <p class="meta-info"><?= Html::encode('Publikováno: dne '.$date) ?><?php if(!empty($caregory_info)) { echo " v ".$caregory_info; } ?></p>
                                 <div class="post_content">

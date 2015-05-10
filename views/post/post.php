@@ -19,24 +19,30 @@ if(is_array($categories)) {
 if(array_key_exists('sidebar', Yii::$app->params)) {
     $sidebar = Yii::$app->params['sidebar'];
 }
+
+if(is_object($category)) {
+$this->params['breadcrumbs'][] = ['label' => $category->category_title, 'url' => '../category/'.$category->guid];
+}
+$this->params['breadcrumbs'][] = ['label' => $post->post_title];
 ?>
 <div class="container">
 <?php
 echo Breadcrumbs::widget([
-    'itemTemplate' => "<li><i>{link}</i></li>\n", // template for all links
-    'links' => [
+    'itemTemplate' => "<li><i class=\"fa fa-home\"></i>{link}</li>\n", 
+    'homeLink' => [ 'label' => 'Úvod', 'url' => Yii::$app->homeUrl, ],
+    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [[
         [
-            'label' => 'Post Category',
-            'url' => ['post-category/view', 'id' => 10],
-            'template' => "<li><b>{link}</b></li>\n", // template for this link only
+            'label' => $category->category_title,
+            'url' => ['../category/'.$category->guid],
+            'template' => "<li>{link}</li>\n", // template for this link only
         ],
         $post->post_title,
-    ],
+    ]],
 ]);
 ?>
-<div class="site-index">
+<div id="post">
 
-    <div class="post <?php if($sidebar['enabled']) { echo 'left'; } ?>">
+    <div class="post_body <?php if($sidebar['enabled']) { echo 'left'; } ?>">
     <div id="post_wrap">
         <h1 class="title"><?= Html::encode($this->title) ?></h1>
         <p class="meta-info"><?= Html::encode('Publikováno: dne '.$date) ?>
@@ -46,7 +52,7 @@ echo Breadcrumbs::widget([
         </div>
     </div>
     <div id="comment-section">
-        <?php if(is_array($comments)) { ?>
+        <?php if(is_array($comments) && !empty($comments)) { ?>
         <h3 class="reply-title">Komentáře (<?php echo count($comments); ?>)</h2>
         <ol class="commentlist">
             <?php foreach($comments as $comment) { ?>

@@ -29,5 +29,7 @@ return [
         'widgets' => [
             'category' => 'Kategorie',
         ]
-    ]
+    ],
+    'recentPosts' => 10,
+    'categoryPosts' => 3,
 ];

@@ -110,6 +110,46 @@ textarea {
     min-height: 80px;
 }
 
+.breadcrumb {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    position: relative;
+    margin: 0 10px;
+    margin-bottom: 27px;
+    padding: 5px 10px;
+    color: #b8b8b8;
+    font-size: 13px;
+    clear: both;
+    border-radius: 0;
+    a {
+        display: inline-block;
+        padding: 5px 5px;
+        color: #4c4c4c;
+        text-shadow: 1px 1px 0 #fff;
+        &:hover {
+            color: #7c7c7c;
+        }
+    }
+    > li + li::before {
+        content: "» ";
+    }
+}
+
+#post, #category {
+    #sidebar {
+        margin-top: 10px;
+    }
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
 /* Home Page */
 .slider, .bx-controls-direction {
     display: none; 

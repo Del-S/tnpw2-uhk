@@ -32,7 +32,9 @@ class Posts extends ActiveRecord
     
     public function editExcerpt() {
         if(empty($this->post_excerpt)) {
-        $this->post_excerpt = substr($this->post_content, 0, 250)."...";
+            $content = $this->post_content;
+            $content = strip_tags($content);
+            $this->post_excerpt = "<p>".substr($content, 0, 250)."...</p>";
         } else { $this->post_excerpt = "<p>".$this->post_excerpt."</p>"; }
     }
     

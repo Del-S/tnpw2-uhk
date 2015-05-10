@@ -1,11 +1,16 @@
 Front - All
-- Style (category detail, post detail, little tweaks everywhere)
-- Breadcrumbs style + set category (category from which was post accessed)
+- Style home-page slider menu
 - contact form
+- facebook share like Monarch plugin
 
 Admin
 - featured image to post (slider image post)
 - Upload images is done (implement to tinymce) and thumbnail for posts
 - Menu management
+- Left menu style check
+- Java box to ask if you are sure to delete..!!!!
 
+
+Suggestions
 - remove unused tables
+- Can create category/ action to view all categories (now redirected to index)

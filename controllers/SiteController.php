@@ -24,9 +24,12 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        if(array_key_exists('recentPosts', Yii::$app->params)) {
+            $count = Yii::$app->params['recentPosts'];
+        } else { $count = 10; }
         $post = [];
         $categories = [];
-        $posts = db\Posts::find()->orderBy(['post_date' => SORT_DESC])->all();
+        $posts = db\Posts::find()->orderBy(['post_date' => SORT_DESC])->limit($count)->all();
         if(is_array($posts)) {
             foreach($posts as $post) {
                 $categories[$post->post_id] = $post->getCategories(true);
