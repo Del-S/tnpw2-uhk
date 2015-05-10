@@ -60,6 +60,7 @@ class UserForm extends Model
     {
         return [
             [['user_login', 'user_nickname', 'user_email' ], 'required'],
+            ['user_email', 'email'],
             [['user_pass', 'user_pass_check' ], 'required', 'on' => 'createUser'],
             
             [['user_pass_check'], 'compare', 'compareAttribute' => 'user_pass', 'operator'=>'==', 'skipOnEmpty' => false],

@@ -14,6 +14,8 @@ if(array_key_exists('sidebar', Yii::$app->params)) {
 <script type="text/javascript">
 $(document).ready(function(){
   $('.slider').bxSlider({
+  auto: true,
+  speed: 2000,
   buildPager: function(slideIndex){
     switch(slideIndex){
       case 0:

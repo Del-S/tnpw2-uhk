@@ -17,13 +17,11 @@ h1.title {
     padding: 19px 0;
 }
 
-.recent_wrap {
-    &.left{
-        width: 70%;
-        float: left;
-        margin-right: 30px;
-        padding: 10px;
-    }
+.left{
+    width: 70%;
+    float: left;
+    margin-right: 30px;
+    padding: 10px;
 }
 
 #post_wrap, .post_wrap {
@@ -53,5 +51,26 @@ h1.title {
         top: 0;
         padding-right: 14px;
         float: right;
+    }
+}
+
+
+.commentlist {
+    list-style-position: inside;
+    padding: 0;
+    .comment-thread {
+        .comment {
+            margin-bottom: 30px;
+            border: 1px solid #e5e5e5;
+            background-color: #fff;
+            .comment_info {
+                border-bottom: 1px solid #e5e5e5;
+                padding: 0 35px;
+                .meta-info {margin-bottom: 0;}
+            }
+            .comment_content {
+                padding: 32px 35px;
+            }
+        }
     }
 }

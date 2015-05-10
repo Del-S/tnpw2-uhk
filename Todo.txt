@@ -1,9 +1,11 @@
-- Fix routing with dashes..!!!!!
-
 Front - All
-- Style (category detail, post detail, little twaks everywhere)
+- Style (category detail, post detail, little tweaks everywhere)
+- Breadcrumbs style + set category (category from which was post accessed)
+- contact form
 
 Admin
 - featured image to post (slider image post)
-- Upload images is done (implement to tinymce)
+- Upload images is done (implement to tinymce) and thumbnail for posts
 - Menu management
+
+- remove unused tables

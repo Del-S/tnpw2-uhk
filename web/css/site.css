@@ -13,18 +13,21 @@ h5 {
   margin-top: 12px;
   margin-bottom: 10px;
 }
-.navbar-nav > li > a {
-  color: white !important;
-}
-.navbar-nav > li > a:hover {
-  background-color: #0895fa !important;
-}
 a {
   color: #0895fa;
 }
 a:hover {
   text-decoration: none;
   color: #0271c0;
+}
+textarea {
+  resize: vertical;
+}
+.navbar-nav > li > a {
+  color: white !important;
+}
+.navbar-nav > li > a:hover {
+  background-color: #0895fa !important;
 }
 .wrap {
   min-height: 100%;

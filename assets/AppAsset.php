@@ -22,7 +22,7 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
-        'assets/5s2z89p2/jquery.bxslider.js',
+        'assets/5s2z89p2/jquery.bxslider.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

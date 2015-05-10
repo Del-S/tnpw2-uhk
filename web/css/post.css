@@ -16,7 +16,7 @@ h1.title {
   font-weight: lighter;
   padding: 19px 0;
 }
-.recent_wrap.left {
+.left {
   width: 70%;
   float: left;
   margin-right: 30px;
@@ -51,4 +51,23 @@ h1.title {
   top: 0;
   padding-right: 14px;
   float: right;
+}
+.commentlist {
+  list-style-position: inside;
+  padding: 0;
+}
+.commentlist .comment-thread .comment {
+  margin-bottom: 30px;
+  border: 1px solid #e5e5e5;
+  background-color: #fff;
+}
+.commentlist .comment-thread .comment .comment_info {
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0 35px;
+}
+.commentlist .comment-thread .comment .comment_info .meta-info {
+  margin-bottom: 0;
+}
+.commentlist .comment-thread .comment .comment_content {
+  padding: 32px 35px;
 }

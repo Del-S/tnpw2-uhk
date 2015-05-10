@@ -44,7 +44,7 @@ $config = [
             'rules' => array(
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
-                '<controller:(post|category)>/<slug:\w+>' => '<controller>/view',
+                '<controller:(post|category)>/<slug:[A-Za-z0-9 -_.]+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 '/<action:\w+>' => 'site/<action>',
             ),
