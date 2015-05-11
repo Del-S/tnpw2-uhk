@@ -6,6 +6,8 @@ use yii\db\ActiveRecord;
 
 class Comments extends ActiveRecord
 {
+    public $post_title = "";
+    
     public function saveComment($attributes) {
         foreach($attributes as $k => $v) {
             if($this->hasAttribute($k)) {

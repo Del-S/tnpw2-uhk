@@ -29,7 +29,7 @@ class SiteController extends Controller
         } else { $count = 10; }
         $post = [];
         $categories = [];
-        $posts = db\Posts::find()->orderBy(['post_date' => SORT_DESC])->limit($count)->all();
+        $posts = db\Posts::find()->where(['post_status' => 'publish'])->orderBy(['post_date' => SORT_DESC])->limit($count)->all();
         if(is_array($posts)) {
             foreach($posts as $post) {
                 $categories[$post->post_id] = $post->getCategories(true);

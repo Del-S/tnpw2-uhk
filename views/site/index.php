@@ -38,9 +38,28 @@ $(document).ready(function(){
         <div id="featured_section">
             <div class="container">
                 <ul class="slider">
+                    <?php if(array_key_exists('sliderPosts', Yii::$app->params)) {
+                        if(Yii::$app->params['sliderPosts'] == true) {
+                            $count = 4;
+                            foreach($posts as $k => $post) {
+                                if($count == 0) { break; }
+                                echo '<li><img src="'.Url::to(['/img/dummy.png']).'" width="1170" height="360" /></li>'; 
+                                $count--;
+                            }
+                        } else {
+                            foreach(Yii::$app->params['sliderImages'] as $k => $slide) {
+                                echo '<li><img src="'.$slide['url'].'" width="1170" height="360" /></li>';
+                            }
+                        } 
+                    } else if(array_key_exists('sliderImages', Yii::$app->params)) { 
+                        foreach(Yii::$app->params['sliderImages'] as $k => $slide) {
+                            echo '<li><img src="'.$slide['url'].'" width="1170" height="360" /></li>';
+                        }
+                    } else { ?>
                     <li><img src="/tnpw2/web/uploads/beautiful_nature_landscape_05_hd_picture.jpg" width="1170" height="360" /></li>
                     <li><img src="/tnpw2/web/uploads/beautiful_nature_landscape_05_hd_picture.jpg" width="1170" height="360"/></li>
                     <li><img src="/tnpw2/web/uploads/beautiful_nature_landscape_05_hd_picture.jpg" width="1170" height="360" /></li>
+                    <?php } ?>
                 </ul>
                 
             </div>

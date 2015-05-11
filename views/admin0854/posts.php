@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use yii\widgets\LinkPager;
 use yii\bootstrap\ActiveForm;
 
 $this->title = 'Příspěvky';
@@ -40,3 +41,6 @@ $this->title = 'Příspěvky';
     </tr>
     <?php endforeach; ?>
     </table>
+<?php  echo LinkPager::widget([
+    'pagination' => $pagination,
+]); ?>

@@ -44,10 +44,11 @@ $config = [
             'rules' => array(
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:(admin0854)>/<action:\w+>' => '<controller>/<action>',
                 '<controller:(post|category)>/<slug:[A-Za-z0-9 -_.]+>' => '<controller>/view',
                 '<category:[A-Za-z0-9 -_.]+>/<slug:[A-Za-z0-9 -_.]+>' => 'post/view',
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 '<controller:(post/|category/|post|category)>/' => 'site/index',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 '/<action:\w+>' => 'site/<action>',
             ),
         ],

@@ -23,7 +23,7 @@ class SidebarWidget extends Widget{
         if(is_array($categories)) {
             $sidebar_html .= '<ul>';
             foreach($categories as $category) {
-                $sidebar_html .= '<li><a href="'.Url::to(['post/'.$category->guid]).'">'.$category->category_title.'</a></li>'; 
+                $sidebar_html .= '<li><a href="'.Url::to(['category/'.$category->guid]).'">'.$category->category_title.'</a></li>'; 
             }
             $sidebar_html .= '</ul>';
         }

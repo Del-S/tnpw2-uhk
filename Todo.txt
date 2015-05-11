@@ -4,13 +4,12 @@ Front - All
 - facebook share like Monarch plugin
 
 Admin
-- featured image to post (slider image post)
-- Upload images is done (implement to tinymce) and thumbnail for posts
+- Upload images is done (implement to tinymce) and thumbnail for posts + connect thumbnails to slider
 - Menu management
 - Left menu style check
-- Java box to ask if you are sure to delete..!!!!
-
+- enable comments global + local
+- configs from file move to database configs (menu options)
 
 Suggestions
 - remove unused tables
-- Can create category/ action to view all categories (now redirected to index)
+- Can create category/action to view all categories (now redirected to index)

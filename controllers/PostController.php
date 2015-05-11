@@ -37,8 +37,8 @@ class PostController extends Controller
         if ($comment_form->load(Yii::$app->request->post()) && $comment_form->comment($post->post_id)) { 
             return $this->refresh();
         }
-        $comments = db\Comments::find()->where(['post_id' => $post->post_id])->all();
         if(is_object($post)) {
+            $comments = db\Comments::find()->where(['post_id' => $post->post_id])->all();
             $categories = $post->getCategories(false);
             return $this->render('post', [
                 'post' => $post,

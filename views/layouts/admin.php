@@ -51,26 +51,28 @@ AdminAsset::register($this);
             <div class="nav admin">
             <?php
                 $rights = Yii::$app->user->identity->getRights();
+                $items[] = ['label' => 'Nástěnka', 'url' => ['/admin0854/index']];
+                if($rights >= 0 && $rights <= 2) {
+                    $items[] = ['label' => 'Příspěvky', 'url' => ['/admin0854/posts']];
+                    $items[] = ['label' => 'Media', 'url' => ['/admin0854/upload']];
+                    if($rights >= 0 && $rights <= 1) {
+                        $items[] = ['label' => 'Kategorie', 'url' => ['/admin0854/category']];
+                    }
+                    $items[] = ['label' => 'Komentáře', 'url' => ['/admin0854/comments']];
+                }
+                if($rights == 0) {
+                    $items[] = ['label' => 'Uživatelé', 'url' => ['/admin0854/user']];    
+                } else {
+                    $items[] = ['label' => 'Uživatel', 'url' => ['/admin0854/user_detail?user='.Yii::$app->user->getId()]];
+                }
+            
                 echo Nav::widget([
                     'options' => ['class' => 'navbar-nav navbar-left'],
-                    'items' => [
-                        ['label' => 'Nástěnka', 'url' => ['/admin0854/index']],
-                        ($rights >= 0 && $rights <= 2) ? 
-                        ['label' => 'Příspěvky', 'url' => ['/admin0854/posts']]: [],
-                        ($rights >= 0 && $rights <= 2) ?
-                        ['label' => 'Media', 'url' => ['/admin0854/upload']]: [],
-                        ($rights >= 0 && $rights <= 2) ?
-                        ['label' => 'Kategorie', 'url' => ['/admin0854/category']]: [],
-                        ($rights >= 0 && $rights <= 2) ?
-                        ['label' => 'Komentáře', 'url' => ['/admin0854/comments']]: [],
-                        ($rights == 0) ? 
-                            ['label' => 'Uživatelé', 'url' => ['/admin0854/user']]: 
-                            ['label' => 'Uživatel', 'url' => ['/admin0854/user_detail']],
-                    ],
+                    'items' => $items,
                 ]);
             ?> 
             </div>
-         <?php } ?>
+         <?php echo $rights."----"; } ?>
         
         <div class="container_admin">
             <?= $content ?>

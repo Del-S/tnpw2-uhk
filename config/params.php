@@ -32,4 +32,19 @@ return [
     ],
     'recentPosts' => 10,
     'categoryPosts' => 3,
+    'sliderPosts' => false, 
+    'sliderImages' => [
+        '1' => [
+            'url' => '/tnpw2/web/uploads/beautiful_nature_landscape_05_hd_picture.jpg',
+            'label' => 'Slider image 1',
+        ],
+        '2' => [
+            'url' => '/tnpw2/web/uploads/slider2.jpg',
+            'label' => 'Slider image 2',
+        ],
+        '3' => [
+            'url' => '/tnpw2/web/uploads/beautiful_nature_landscape_05_hd_picture.jpg',
+            'label' => 'Slider image 3',
+        ],
+    ],
 ];

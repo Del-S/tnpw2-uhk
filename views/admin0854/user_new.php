@@ -1,11 +1,11 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-
-$this->title = 'Detail uživatele';
+$this->title = 'Nový uživatel';
 ?>
-    <div id="user-detail">
     <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>Vytvořit novou Kategorii</p>
 
     <?php 
     $rights = array(0 => 'Administrátor', 1 => 'Šéfredaktor', 2 => 'Redaktor');
@@ -24,9 +24,7 @@ $this->title = 'Detail uživatele';
     <?= $form->field($user_form, 'user_nickname') ?>
     <?= $form->field($user_form, 'user_email') ?>
     <?= $form->field($user_form, 'user_url') ?>
-    <?php if($user_form->user_status == 0) { ?>
-        <?= $form->field($user_form, 'user_status')->dropDownList($rights); ?>
-    <?php } ?>
+    <?= $form->field($user_form, 'user_status')->dropDownList($rights); ?>
     <?= $form->field($user_form, 'user_display_name') ?>
 
     <div class="form-group">
@@ -35,4 +33,3 @@ $this->title = 'Detail uživatele';
         </div>
     </div>
     <?php ActiveForm::end(); ?>
-    </div>

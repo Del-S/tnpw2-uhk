@@ -7,6 +7,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 use yii\base\Model;
+use yii\data\Pagination;
 use app\models\forms\UploadForm;
 use app\models\User;
 use app\models\db;
@@ -72,12 +73,15 @@ class Admin0854Controller extends Controller
     {     
         $rights = Yii::$app->user->identity->getRights();
         if( $rights >= 0 && $rights <= 2 ) {
-            $posts = db\Posts::find()
+            $posts_query = db\Posts::find()
                 ->select(['posts.*', 'user.user_display_name'])
                 ->leftJoin('user', '`user`.`user_id` = `posts`.`post_author`')
-                ->where(['!=', 'post_status', 'trash'])
-                ->all();       
-                
+                ->where(['=', 'post_status', 'publish']);       
+            $pagination = new Pagination(['totalCount' => $posts_query->count(), 'defaultPageSize' => 5, 'validatePage' => true]);
+            $posts = $posts_query->offset($pagination->offset)
+                    ->limit($pagination->limit)
+                    ->all();
+            
             foreach($posts as $post) {
                 $categories = db\CategoryMeta::find()
                     ->select(['category_name'])
@@ -95,6 +99,7 @@ class Admin0854Controller extends Controller
                 
             return $this->render('posts', [
                 'posts' => $posts,
+                'pagination' => $pagination,
             ]);  
         } else {  $this->redirect('./index'); }
     }
@@ -120,12 +125,12 @@ class Admin0854Controller extends Controller
     
     public function actionPost_detail() {
         $rights = Yii::$app->user->identity->getRights();
-        if( $rights >= 0 && $rights <= 2 ) {
-            if($rights == 2 && $post->post_author == Yii::$app->user->id) { $this->redirect('./posts'); }
-                
+        if( $rights >= 0 && $rights <= 2 ) {        
             $post_id = $_GET['post'];
             if(is_numeric($post_id)) {
                 $post = db\Posts::find()->where(['post_id' => $post_id])->one();
+                if($rights == 2 && $post->post_author != Yii::$app->user->id) { $this->redirect('./posts'); }
+                
                 $post_attributes = array_combine($post->attributes(), $post->getAttributes());
 
                 $categories_attr['meta_key'] = "post_categories";

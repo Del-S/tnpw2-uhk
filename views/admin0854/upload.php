@@ -8,5 +8,5 @@ $this->title = 'Nahrát soubory';
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
       <?= $form->field($upload_form, 'file[]')->fileInput(['multiple' => true]) ?>
-      <button>Submit</button>
+      <button>Nahrát soubor</button>
     <?php ActiveForm::end(); ?>

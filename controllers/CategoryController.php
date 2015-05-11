@@ -23,7 +23,11 @@ class CategoryController extends Controller
     
     public function actionView()
     {
-        $guid = $_GET['slug'];
+        if(array_key_exists('slug', $_GET)) {
+            $guid = $_GET['slug'];
+        }
+        $pagination = new Pagination(['totalCount' => 0]);
+
         $category = db\Category::find()->where(['guid' => $guid])->one();
         if(is_object($category)) {
             $category_meta = db\CategoryMeta::find()->where(['category_id' => $category->category_id])->one();
@@ -41,6 +45,7 @@ class CategoryController extends Controller
                 $pagination = new Pagination(['totalCount' => $posts_query->count(), 'defaultPageSize' => $count, 'validatePage' => true]);
                 $posts = $posts_query->offset($pagination->offset)
                     ->limit($pagination->limit)
+                    ->andWhere(['post_status' => 'publish'])
                     ->orderBy(['post_date' => SORT_DESC])
                     ->all();
 
