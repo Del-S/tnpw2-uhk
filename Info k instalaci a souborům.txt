@@ -1,0 +1,26 @@
+Instalace:
+- kopie souborů a databáze
+- nastavení config/db.php pro přístup
+- přístup: *adresa*/web/
+
+Složky:
+- Assets - include css a js
+- components - sidebar widget pro zobrazení sidebaru kategorií
+- config - nastavení
+  - params - nastavení, které budou nastavitelné pomocí administrace (zatím nejsou)
+- controllers - Admin je pro celý admin, ostatní jsou pro fron-end
+- models - Modelové třídy
+- vendors - yii základní funkce
+- views - View soubory
+- web - přístupová složka k webu
+
+Vlastní konfigurace, které budou implementovány do administrace jsou v souboru config/params.php
+
+Administrace loginy:
+Admin - heslo123
+Sefred - heslo123
+Redaktor - heslo123
+
+Admin - komepletní práva
+Sefredaktor - nemůže spravovat uživatele, pouze sebe
+Redaktor - nemůže spravovat Kategorie a upravovat může pouze svoje příspěvky

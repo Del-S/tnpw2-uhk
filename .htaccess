@@ -1,0 +1,4 @@
+RewriteEngine on
+# If a directory or a file exists, use it directly
+RewriteCond %{HTTP_HOST} ^(www\.)?sucharda\.com$ [NC]
+RewriteRule !^web/ /web%{REQUEST_URI} [L,NC]
