@@ -1,15 +1,16 @@
 Front - All
 - Style home-page slider menu
-- contact form
-- facebook share like Monarch plugin
+- Contact form
+- Facebook share like Monarch plugin (wordpress plugin)
 
 Admin
 - Upload images is done (implement to tinymce) and thumbnail for posts + connect thumbnails to slider
+- Idea for images is like Wordpress management, upload, create multiple pixel sizes, crop files etc
 - Menu management
 - Left menu style check
-- enable comments global + local
-- configs from file move to database configs (menu options)
+- Enable comments global + local for posts
+- Move all configs from file to admin - slider, menu....
 
 Suggestions
-- remove unused tables
+- Remove unused tables
 - Can create category/action to view all categories (now redirected to index)
